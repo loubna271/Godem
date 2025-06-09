@@ -1,0 +1,16 @@
+/* Pages/animations.css */
+
+@keyframes scrollHorizontal {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll-horizontal {
+    animation: scrollHorizontal 20s linear infinite;
+    display: flex;
+    width: 200%; /* Double de la largeur pour permettre un défilement infini */
+}
