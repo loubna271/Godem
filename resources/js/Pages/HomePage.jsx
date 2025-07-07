@@ -2,7 +2,7 @@ import React , {useState}from "react";
 import Lottie from "lottie-react";
 import animationData from "/public/lottie/Animation6.json"; // Chemin de ton fichier JSON
 import animationData2 from "/public/lottie/animation2.json"; // Chemin de ton fichier JSON
-import animationData3 from "/public/lottie/animation7.json"; // Chemin de ton fichier JSON
+import animationData3 from "/public/lottie/Animation7.json"; // Chemin de ton fichier JSON
 import '../Pages/animations.css';
 import { Link } from "@inertiajs/react"; // Importez Link depuis Inertia.js
 import 'animate.css';
