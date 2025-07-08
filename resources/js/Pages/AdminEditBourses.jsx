@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, usePage, router } from '@inertiajs/react'; // Importe 'router'
+import Layout from '../Components/Layout';
+import Footer from '../Components/Footer';
 
 const AdminEditBourses = () => {
     const { bourse } = usePage().props;
@@ -39,6 +41,7 @@ const AdminEditBourses = () => {
     };
 
     return (
+         <Layout>
         <div className="max-w-4xl mx-auto p-6 pt-24">
             <h1 className="text-2xl font-bold text-center text-[#D3D141] mb-6">Modifier la bourse</h1>
             <form onSubmit={handleSubmit} className="space-y-4 bg-white shadow-md rounded-lg p-6">
@@ -94,6 +97,8 @@ const AdminEditBourses = () => {
                 </button>
             </form>
         </div>
+         <Footer />
+        </Layout>
     );
 };
 
