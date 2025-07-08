@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage, router } from '@inertiajs/react'; // Importe 'router'
 
 const AdminEditBourses = () => {
     const { bourse } = usePage().props;
 
-    const { data, setData, put, errors } = useForm({
+    const { data, setData, processing, errors } = useForm({ // Ajout de processing pour le bouton
         nom: bourse.nom || '',
         description: bourse.description || '',
         lien: bourse.lien || '',
@@ -14,7 +14,28 @@ const AdminEditBourses = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        put(`/admin/bourses/${bourse.id}`);
+        const formData = new FormData();
+        formData.append('_method', 'PUT'); // Important pour simuler la méthode PUT
+        formData.append('nom', data.nom);
+        formData.append('description', data.description);
+        formData.append('lien', data.lien);
+
+        if (data.logo) { // N'ajoute le logo que si un nouveau fichier a été sélectionné
+            formData.append('logo', data.logo);
+        }
+
+        router.post(`/admin/bourses/${bourse.id}`, formData, {
+            // forceFormData: true, // Cette ligne est inutile ici car tu utilises FormData
+            onSuccess: () => {
+                console.log('Bourse mise à jour avec succès!');
+                // Tu peux ajouter une redirection ou un message flash ici si tu veux
+                // router.visit(route('admin.bourses.index'));
+            },
+            onError: (errors) => {
+                console.error('Erreur de validation:', errors);
+                // useForm gère déjà les erreurs automatiqument, donc cela est plus pour le debug
+            },
+        });
     };
 
     return (
@@ -66,9 +87,10 @@ const AdminEditBourses = () => {
 
                 <button
                     type="submit"
+                    disabled={processing} // Utilise la variable 'processing' de useForm
                     className="bg-[#D3D141] hover:bg-yellow-400 text-white px-4 py-2 rounded"
                 >
-                    Enregistrer les modifications
+                    {processing ? 'Enregistrement...' : 'Enregistrer les modifications'}
                 </button>
             </form>
         </div>
