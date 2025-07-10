@@ -79,7 +79,7 @@ const AdminConcoursAnnonce = () => {
                                         className="bg-[#9674C3] text-white px-4 py-2 rounded hover:bg-blue-600 block text-center mb-2"
                                         rel="noopener noreferrer"
                                     >
-                                        Site du concours
+                                        Site d'inscription au concours
                                     </a>
                                 </div>
                             )}

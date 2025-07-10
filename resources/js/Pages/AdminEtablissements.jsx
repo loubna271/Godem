@@ -3,7 +3,7 @@ import { usePage, Link, router } from "@inertiajs/react";
 import Layout from '../Components/Layout';
 import Footer from '../Components/Footer';
 import Swal from 'sweetalert2';
-import { FaEdit, FaTrash,FaPlus} from 'react-icons/fa';  
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
 const AdminEtablissements = () => {
     const { etablissements } = usePage().props;
@@ -40,7 +40,7 @@ const AdminEtablissements = () => {
                     onSuccess: () => {
                         Swal.fire('Supprimé !', 'L’établissement a été supprimé.', 'success');
                         // Optionnel : rafraîchir la page ou retirer l'élément localement
-                        // window.location.reload(); 
+                        // window.location.reload();
                     },
                     onError: () => {
                         Swal.fire('Erreur !', 'Une erreur est survenue.', 'error');
@@ -49,17 +49,24 @@ const AdminEtablissements = () => {
             }
         });
     };
-    
+
+    // Define your realisations images with their correct extensions
+    const realisationsImages = [
+        { id: 1, src: '/images/realisations1.png', alt: 'Réalisation 1' },
+        { id: 2, src: '/images/realisations2.jpeg', alt: 'Réalisation 2' },
+        { id: 3, src: '/images/realisations3.jpeg', alt: 'Réalisation 3' },
+        { id: 4, src: '/images/realisations4.jpeg', alt: 'Réalisation 4' },
+    ];
 
     return (
         <Layout>
             <div className="container mx-auto p-6 flex flex-col lg:flex-row gap-8">
                 <div className="w-full lg:w-[75%]">
-                <div className="flex justify-between items-center mb-6 mt-16">
+                    <div className="flex justify-between items-center mb-6 mt-16">
                         <h1 className="text-xl md:text-3xl text-[#9674C3] font-bold text-center">Gestion des Établissements</h1>
                         {/* Bouton Ajouter un établissement */}
-                        <Link 
-                            href="/admin/etablissements/create" 
+                        <Link
+                            href="/admin/etablissements/create"
                             className="flex items-center gap-2 bg-[#9674C3] hover:bg-[#7a5b9d] text-white px-4 py-2 rounded-lg transition duration-200"
                         >
                             <FaPlus /> Ajouter un établissement
@@ -70,42 +77,40 @@ const AdminEtablissements = () => {
                         <input type="text" placeholder="Ville" value={searchTerm.ville} onChange={(e) => setSearchTerm({ ...searchTerm, ville: e.target.value })} className="p-2 border rounded-md w-full sm:w-1/4" />
                         <input type="text" placeholder="Domaine" value={searchTerm.domaine} onChange={(e) => setSearchTerm({ ...searchTerm, domaine: e.target.value })} className="p-2 border rounded-md w-full sm:w-1/4" />
                         <input type="text" placeholder="Type" value={searchTerm.type} onChange={(e) => setSearchTerm({ ...searchTerm, type: e.target.value })} className="p-2 border rounded-md w-full sm:w-1/4" />
-                        
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         {filteredEtablissements.length > 0 ? (
                             filteredEtablissements.map((etablissement) => (
                                 <div key={etablissement.id} className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col justify-between">
-  <Link href={`/etablissements/${etablissement.id}`}>
-    <img
-      src={`/images/${etablissement.logo_ecole}`}
-      alt={`Logo de ${etablissement.nom_universite}`}
-      className="w-full aspect-[4/3] object-contain bg-gray-100 h-32 sm:h-16 md:h-auto"
-      onError={(e) => (e.target.src = "/images/default-logo.png")}
-    />
-    <div className="p-4">
-      <h2 className="text-lg font-semibold text-gray-800">{etablissement.nom_universite}</h2>
-      <p className="text-sm text-gray-600"><strong>Domaine :</strong> {etablissement.domaine}</p>
-      <p className="text-sm text-gray-600"><strong>Type :</strong> {etablissement.type}</p>
-      <p className="text-sm text-gray-600"><strong>Ville :</strong> {etablissement.ville}</p>
-    </div>
-  </Link>
+                                    <Link href={`/etablissements/${etablissement.id}`}>
+                                        <img
+                                            src={`/images/${etablissement.logo_ecole}`}
+                                            alt={`Logo de ${etablissement.nom_universite}`}
+                                            className="w-full aspect-[4/3] object-contain bg-gray-100 h-32 sm:h-16 md:h-auto"
+                                            onError={(e) => (e.target.src = "/images/default-logo.png")}
+                                        />
+                                        <div className="p-4">
+                                            <h2 className="text-lg font-semibold text-gray-800">{etablissement.nom_universite}</h2>
+                                            <p className="text-sm text-gray-600"><strong>Domaine :</strong> {etablissement.domaine}</p>
+                                            <p className="text-sm text-gray-600"><strong>Type :</strong> {etablissement.type}</p>
+                                            <p className="text-sm text-gray-600"><strong>Ville :</strong> {etablissement.ville}</p>
+                                        </div>
+                                    </Link>
 
-  {/* Boutons en bas */}
-  <div className="flex justify-between px-4 py-2 border-t mt-auto">
-    <Link href={`/admin/etablissements/${etablissement.id}/edit`} className="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm">
-      <FaEdit /> Modifier
-    </Link>
-    <button
-      onClick={() => handleDelete(etablissement.id)}
-      className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm"
-    >
-      <FaTrash /> Supprimer
-    </button>
-  </div>
-</div>
-                                
+                                    {/* Boutons en bas */}
+                                    <div className="flex justify-between px-4 py-2 border-t mt-auto">
+                                        <Link href={`/admin/etablissements/${etablissement.id}/edit`} className="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm">
+                                            <FaEdit /> Modifier
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDelete(etablissement.id)}
+                                            className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm"
+                                        >
+                                            <FaTrash /> Supprimer
+                                        </button>
+                                    </div>
+                                </div>
                             ))
                         ) : (
                             <p className="text-center text-gray-500">Aucun établissement trouvé.</p>
@@ -118,9 +123,9 @@ const AdminEtablissements = () => {
                         <h2 className="text-2xl font-bold text-white">Nos Réalisations</h2>
                     </div>
                     <div className="grid grid-cols-1 gap-6 w-full">
-                        {[1, 2, 3, 4].map((index) => (
-                            <div key={index} className="animate-fade-in-up transform transition-all duration-500 hover:scale-105">
-                                <img src={`/images/realisation${index}.png`} alt={`Réalisation ${index}`} className="w-full h-40 sm:h-auto rounded-lg shadow-lg" />
+                        {realisationsImages.map((image) => (
+                            <div key={image.id} className="animate-fade-in-up transform transition-all duration-500 hover:scale-105">
+                                <img src={image.src} alt={image.alt} className="w-full h-40 sm:h-auto rounded-lg shadow-lg" />
                             </div>
                         ))}
                     </div>

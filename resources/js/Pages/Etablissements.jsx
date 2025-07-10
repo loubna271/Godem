@@ -22,6 +22,14 @@ const Etablissements = () => {
         );
     });
 
+    // Define your realisations images with their correct extensions
+    const realisationsImages = [
+        { id: 1, src: '/images/realisations1.png', alt: 'Réalisation 1' },
+        { id: 2, src: '/images/realisations2.jpeg', alt: 'Réalisation 2' },
+        { id: 3, src: '/images/realisations3.jpeg', alt: 'Réalisation 3' },
+        { id: 4, src: '/images/realisations4.jpeg', alt: 'Réalisation 4' },
+    ];
+
     return (
         <Layout>
             <div className="container mx-auto p-6 flex flex-col lg:flex-row gap-8">
@@ -39,12 +47,12 @@ const Etablissements = () => {
                         {filteredEtablissements.length > 0 ? (
                             filteredEtablissements.map((etablissement) => (
                                 <Link key={etablissement.id} href={`/etablissements/${etablissement.id}`} className="block bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300">
-<img
-    src={`/images/${etablissement.logo_ecole}`}
-    alt={`Logo de ${etablissement.nom_universite}`}
-    className="w-full aspect-[4/3] object-contain bg-gray-100 h-32 sm:h-16 md:h-auto"
-    onError={(e) => (e.target.src = "/images/default-logo.png")} 
-/>
+                                    <img
+                                        src={`/images/${etablissement.logo_ecole}`}
+                                        alt={`Logo de ${etablissement.nom_universite}`}
+                                        className="w-full aspect-[4/3] object-contain bg-gray-100 h-32 sm:h-16 md:h-auto"
+                                        onError={(e) => (e.target.src = "/images/default-logo.png")}
+                                    />
                                     <div className="p-4">
                                         <h2 className="text-lg font-semibold text-gray-800">{etablissement.nom_universite}</h2>
                                         <p className="text-sm text-gray-600"><strong>Domaine :</strong> {etablissement.domaine}</p>
@@ -64,9 +72,9 @@ const Etablissements = () => {
                         <h2 className="text-2xl font-bold text-white">Nos Réalisations</h2>
                     </div>
                     <div className="grid grid-cols-1 gap-6 w-full">
-                        {[1, 2, 3, 4].map((index) => (
-                            <div key={index} className="animate-fade-in-up transform transition-all duration-500 hover:scale-105">
-                                <img src={`/images/realisation${index}.png`} alt={`Réalisation ${index}`} className="w-full h-40 sm:h-auto rounded-lg shadow-lg" />
+                        {realisationsImages.map((image) => ( // Use the new realisationsImages array
+                            <div key={image.id} className="animate-fade-in-up transform transition-all duration-500 hover:scale-105">
+                                <img src={image.src} alt={image.alt} className="w-full h-40 sm:h-auto rounded-lg shadow-lg" />
                             </div>
                         ))}
                     </div>
